@@ -47,6 +47,7 @@ class Book {
 	
 	/**
      * @ORM\Column(type="string", length=100, nullable=true)
+	 * @Assert\File(mimeTypes={ "image/jpeg",  "image/png"}, mimeTypesMessage="Тип файла должен быть JPEG или PNG.")
      */
 	private $cover;
 	
