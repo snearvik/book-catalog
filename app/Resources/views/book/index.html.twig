@@ -1,47 +1,32 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Books list</h1>
+	<div class="container no-gutters" style="margin-bottom: 15px">
+		<div class="row justify-content-start align-items-center">
+			<div class="col-md-auto">
+				<h1>Каталог книг</h1>
+			</div>
+			<div class="col-md-auto">
+				<a class="btn btn-primary" href="{{ path('book_new') }}" role="button">Добавить</a>
+			</div>
+		</div>
+	</div>
 
-    <table>
-        <thead>
-            <tr>
-                {#<th>Id</th>#}
-                <th>Наименование</th>
-                <th>Год издания</th>
-                <th>ISBN</th>
-                <th>Количество страниц</th>
-                {#<th>Обложка</th>#}
-                <th>Действия</th>
-            </tr>
-        </thead>
+    <table class="table table-hover">
         <tbody>
         {% for book in books %}
             <tr>
-                {#<td><a href="{{ path('book_show', { 'id': book.id }) }}">{{ book.id }}</a></td>#}
-                <td>{{ book.name }}</td>
-                <td>{{ book.publishingYear }}</td>
-                <td>{{ book.isbn }}</td>
-                <td>{{ book.pageCount }}</td>
-                {#<td><img src="{{ asset('uploads/covers/' ~ book.cover) }}" alt="img" width=30%/></td>#}
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('book_show', { 'id': book.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('book_edit', { 'id': book.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
+				<td><img src="{{ asset('uploads/covers/' ~ book.cover) }}" alt="img" width=20%/></td>
+                <td><a href="{{ path('book_show', { 'id': book.id }) }}">{{ book.name }}</a></td>
+				<td>
+					{% for author in book.authors %}
+					{{ (author.getFullName()) }}<br>
+					{% endfor %}
+				</td>                
+               
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('book_new') }}">Create a new book</a>
-        </li>
-    </ul>
+	
 {% endblock %}

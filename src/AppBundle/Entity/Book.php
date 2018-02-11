@@ -53,7 +53,6 @@ class Book {
 	
 	/**
      * Many Books have Many Authors.
-	 * Owning side of a bidirectional association.
      * @ORM\ManyToMany(targetEntity="Author", inversedBy="books")
      * @ORM\JoinTable(name="book_author",
 			joinColumns={@ORM\JoinColumn(name="book_id", referencedColumnName="id")},

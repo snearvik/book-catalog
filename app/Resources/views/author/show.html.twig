@@ -1,14 +1,10 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Author</h1>
+    <h1>Информация об авторе</h1>
 
     <table>
         <tbody>
-			{#<tr>
-                <th>Id</th>
-                <td>{{ author.id }}</td>
-            </tr>#}
 			<tr>
                 <th>Фамилия</th>
                 <td>{{ author.surname }}</td>
@@ -27,14 +23,14 @@
 
     <ul>
         <li>
-            <a href="{{ path('author_index') }}">Back to the list</a>
+            <a href="{{ path('author_index') }}">Назад к списку</a>
         </li>
         <li>
-            <a href="{{ path('author_edit', { 'id': author.id }) }}">Edit</a>
+            <a href="{{ path('author_edit', { 'id': author.id }) }}">Редактировать</a>
         </li>
         <li>
             {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
+                <input type="submit" value="Удалить">
             {{ form_end(delete_form) }}
         </li>
     </ul>

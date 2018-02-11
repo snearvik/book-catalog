@@ -3,11 +3,23 @@
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+		<link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" />
+        {% block stylesheets %}{% endblock %}
     </head>
     <body>
+		<ul class="nav nav-pills mb-3 bg-primary">
+		  <li class="nav-item">
+			<a class="nav-link text-light" href="{{ path('book_index') }}" >Книги</a>
+		  </li>
+		  <li class="nav-item">
+			<a class="nav-link text-light" href="{{ path('author_index') }}">Авторы</a>
+		  </li>
+		</ul>
         {% block body %}{% endblock %}
+		<script src="{{ asset('js/jquery-3.3.1.js') }}"></script> 
+		<!--<script src="{{ asset('js/bootstrap.min.js') }}"></script> -->
+		<script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
         {% block javascripts %}{% endblock %}
     </body>
 </html>

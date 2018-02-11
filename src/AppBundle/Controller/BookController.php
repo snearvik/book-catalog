@@ -8,8 +8,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
-//use AppBundle\Service\FileUploader;
-//use Symfony\Component\HttpFoundation\File\File;
+use AppBundle\Service\FileUploader;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * Book controller.
@@ -41,22 +41,20 @@ class BookController extends Controller
      * @Route("/new", name="book_new")
      * @Method({"GET", "POST"})
      */
-    public function newAction(Request $request/*, FileUploader $fileUploader*/)
+    public function newAction(Request $request, FileUploader $fileUploader)
     {
         $book = new Book();
         $form = $this->createForm(BookType::class, $book);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            /*
-			$book = $form->getData();
-			
+            		
 			$file = $book->getCover();
 			if ($file) {
 				$fileName = $fileUploader->upload($file);
 				$book->setCover($fileName);
 			}
-			*/
+			
 			$em = $this->getDoctrine()->getManager();
             $em->persist($book);
             $em->flush();
@@ -92,32 +90,33 @@ class BookController extends Controller
      * @Route("/{id}/edit", name="book_edit")
      * @Method({"GET", "POST"})
      */
-    public function editAction(Request $request, Book $book)
-    {
-		/*
+    public function editAction(Request $request, Book $book, FileUploader $fileUploader)
+    {		
+		$oldFilename = $book->getCover();
 		$filename = $book->getCover();
-		if ($filename) {
-			$book->setCover(new File($this->getParameter('covers_directory').'/'.$filename));
+		if ($filename) {			
+			$book->setCover(new File($this->getParameter('covers_directory').'/'.$filename));			
 		}
-		*/
+		
+		
         $deleteForm = $this->createDeleteForm($book);
         $editForm = $this->createForm(BookType::class, $book);
         $editForm->handleRequest($request);
-
+		
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-			/*
-			$book = $form->getData();
 			
 			$file = $book->getCover();
 			if ($file) {
 				$fileName = $fileUploader->upload($file);
 				$book->setCover($fileName);
 			}
-			*/
+			else {
+				$book->setCover($oldFilename);
+			}
 			
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('book_edit', array('id' => $book->getId()));
+			return $this->redirectToRoute('book_show', array('id' => $book->getId()));
         }
 
         return $this->render('book/edit.html.twig', array(

@@ -1,48 +1,54 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Book</h1>
-
-    <table>
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ book.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ book.name }}</td>
-            </tr>
-            <tr>
-                <th>Publishingyear</th>
-                <td>{{ book.publishingYear }}</td>
-            </tr>
-            <tr>
-                <th>Isbn</th>
-                <td>{{ book.isbn }}</td>
-            </tr>
-            <tr>
-                <th>Pagecount</th>
-                <td>{{ book.pageCount }}</td>
-            </tr>
-            <tr>
-                {#<th>Cover</th>
-                <td><img src="{{ asset('uploads/covers/' ~ book.cover) }}" alt="img" width=50%/></td>#}
-            </tr>
-        </tbody>
-    </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('book_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('book_edit', { 'id': book.id }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+	<div class="container no-gutters" style="margin-bottom: 15px">
+		<div class="row justify-content-start align-items-center">
+			<div class="col-md-auto">
+				<h1>{{ book.name }}</h1>
+			</div>
+			<div class="col-md-auto">
+				<a class="btn btn-primary" href="{{ path('book_edit', { 'id': book.id }) }}" role="button">Редактировать</a> 
+			</div>
+			<div class="col-md-auto">
+				{{ form_start(delete_form) }}
+				<input class="btn btn-primary" type="submit" value="Удалить">
+				{{ form_end(delete_form) }}
+			</div>
+		  </div>
+	</div>
+    
+	<div class="container no-gutters">
+		<div class="row justify-content-start align-items-top">
+			<div class="col-md-auto">
+				<img src="{{ asset('uploads/covers/' ~ book.cover) }}" alt="{{ book.cover }}" />
+			</div>
+			<div class="col-md-auto">
+				<table class="table">
+					<tbody>
+						<tr>
+							<th>Год издания</th>
+							<td>{{ book.publishingYear }}</td>
+						</tr>
+						<tr>
+							<th>ISBN</th>
+							<td>{{ book.isbn }}</td>
+						</tr>
+						<tr>
+							<th>Количество страниц</th>
+							<td>{{ book.pageCount }}</td>
+						</tr>
+						<tr>
+							<th>Авторы</th>
+							<td>
+								{% for author in book.authors %}
+								{{ (author.getFullName()) }}<br>
+								{% endfor %}
+							</td>
+						</tr>
+					</tbody>
+				</table>					
+			</div>			
+		</div>
+	</div>
+	
 {% endblock %}

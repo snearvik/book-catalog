@@ -1,17 +1,34 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Book creation</h1>
+    <h1>Создание книги</h1>
 
     {{ form_start(form) }}
-        {{ form_widget(form) }}
-		{#{{ form_row(form.cover) }}#}
-        <input type="submit" value="Create" />
+	
+		{{ form_row(form.name) }}
+		{{ form_row(form.publishingYear) }}
+		{{ form_row(form.isbn) }}
+		{{ form_row(form.pageCount) }}
+		{{ form_row(form.authors) }}
+		{{ form_row(form.cover) }}
+		{#<h3>Авторы</h3>
+		<ul class="authors">
+        {% for author in form.authors %}
+            <li>{{ form_row(author) }}</li>
+        {% endfor %}
+    </ul>#}		
+		
+        {#{{ form_widget(form) }}#}
+		
+        <input type="submit" value="Сохранить" />
     {{ form_end(form) }}
 
     <ul>
         <li>
-            <a href="{{ path('book_index') }}">Back to the list</a>
+            <a href="{{ path('book_index') }}">Назад к списку</a>
         </li>
     </ul>
+{% endblock %}
+{% block javascripts %} 
+
 {% endblock %}

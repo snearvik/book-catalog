@@ -8,7 +8,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use AppBundle\Entity\Book;
+
 
 class BookType extends AbstractType
 {
@@ -21,9 +23,16 @@ class BookType extends AbstractType
 			->add('name', TextType::class, array('label' => 'Наименование'))
 			->add('publishingYear', IntegerType::class, array('label' => 'Год издания'))
 			->add('isbn', TextType::class, array('label' => 'ISBN'))
-			->add('pageCount', TextType::class, array('label' => 'Количество страниц'));
-			/*->add('cover', FileType::class, array('label' => 'Обложка (JPEG или PNG)', 'required' => false))
-			->add('authors')*/;
+			->add('pageCount', TextType::class, array('label' => 'Количество страниц'))
+			->add('authors', EntityType::class, array(
+					'class' => 'AppBundle:Author',
+					'choice_label' => 'getFullName',
+					'multiple' => true,
+					//'expanded' => true,
+					'label' => 'Авторы',
+					'required' => false,
+				))			
+			->add('cover', FileType::class, array('label' => 'Обложка (JPEG или PNG)', 'required' => false));
     }/**
      * {@inheritdoc}
      */

@@ -31,13 +31,12 @@ class Author {
 	private $surname;
 	
 	/**
-     * @ORM\Column(type="string", length=200)
+     * @ORM\Column(type="string", length=200, nullable=true)
      */
 	private $middleName;
 	
 	/**
 	 * Many Authors have Many Books. 
-	 * Inversed side of a bidirectional association.
      * @ORM\ManyToMany(targetEntity="Book", mappedBy="authors")
      */	
 	private $books;
@@ -162,4 +161,10 @@ class Author {
     {
         return $this->books;
     }
+	
+	public function getFullName() 
+	{
+		$middleName = empty($this->middleName)?'':(mb_substr($this->middleName,0,1,'UTF-8').'. ');
+		return $this->surname.' '.mb_substr($this->name,0,1,'UTF-8').'. '.$middleName;
+	}
 }

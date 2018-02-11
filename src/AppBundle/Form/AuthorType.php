@@ -6,7 +6,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use AppBundle\Entity\Author;
 
 class AuthorType extends AbstractType
 {
@@ -16,15 +15,18 @@ class AuthorType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-			->add('surname', TextType::class, array('label' => 'Фамилия'))
 			->add('name', TextType::class, array('label' => 'Имя'))
-			->add('middleName', TextType::class, array('label' => 'Отчество'));
+			->add('surname', TextType::class, array('label' => 'Фамилия'))
+			->add('middleName', TextType::class, array('label' => 'Отчество', 'required' => false));
+			//->add('books');
     }/**
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array('data_class' => Author::class));
+        $resolver->setDefaults(array(
+            'data_class' => 'AppBundle\Entity\Author'
+        ));
     }
 
     /**
