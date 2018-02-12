@@ -50,29 +50,12 @@ class AuthorController extends Controller
             $em->persist($author);
             $em->flush();
 
-            //return $this->redirectToRoute('author_show', array('id' => $author->getId()));
 			return $this->redirectToRoute('author_index');
         }
 
         return $this->render('author/new.html.twig', array(
             'author' => $author,
             'form' => $form->createView(),
-        ));
-    }
-
-    /**
-     * Finds and displays a author entity.
-     *
-     * @Route("/{id}", name="author_show")
-     * @Method("GET")
-     */
-    public function showAction(Author $author)
-    {
-        $deleteForm = $this->createDeleteForm($author);
-
-        return $this->render('author/show.html.twig', array(
-            'author' => $author,
-            'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -91,7 +74,6 @@ class AuthorController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            //return $this->redirectToRoute('author_edit', array('id' => $author->getId()));
 			return $this->redirectToRoute('author_index');
         }
 

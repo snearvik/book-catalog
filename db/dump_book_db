@@ -1,0 +1,109 @@
+-- MySQL dump 10.13  Distrib 5.6.38, for Win32 (AMD64)
+--
+-- Host: localhost    Database: book_db
+-- ------------------------------------------------------
+-- Server version	5.6.38
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `author`
+--
+
+DROP TABLE IF EXISTS `author`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `author` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `surname` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `middle_name` varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `author`
+--
+
+LOCK TABLES `author` WRITE;
+/*!40000 ALTER TABLE `author` DISABLE KEYS */;
+INSERT INTO `author` VALUES (2,'Аркадий','Стругацкий','Натанович'),(3,'Борис','Стругацкий','Натанович'),(4,'Льюис','Кэрролл',NULL),(5,'Джон','Толкиен',NULL),(13,'Дуглас','Адамс',NULL),(14,'Джордж','Оруэлл',NULL);
+/*!40000 ALTER TABLE `author` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `book`
+--
+
+DROP TABLE IF EXISTS `book`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `book` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `publishing_year` int(11) NOT NULL,
+  `isbn` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `page_count` int(11) NOT NULL,
+  `cover` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `book`
+--
+
+LOCK TABLES `book` WRITE;
+/*!40000 ALTER TABLE `book` DISABLE KEYS */;
+INSERT INTO `book` VALUES (2,'Град Обреченный',2015,'978-5-17-093059-3',448,'a72976e962efec041f319958ab06e96b.jpeg'),(4,'Приключения Алисы в Стране Чудес',2018,'978-5-950045-15-8',112,'163547d3ad734c30821643ab114483a9.jpeg'),(5,'Пикник на обочине',2015,'978-5-17-093041-8',192,'b708e2a764241e96dbc25ea444934528.jpeg'),(6,'Хоббит, или Туда и Обратно',2014,'978-5-17-083891-2',384,'480571eccde5b560522aaa5ae5b786c2.jpeg'),(8,'Автостопом по Галактике',2016,'978-5-17-098748-1',640,'94a2c5949825621ebbc62d33b043d1d4.jpeg'),(9,'1984',2016,'978-5-17-080115-2',320,'896f07a6d4834c97439f0ba6b4932a48.jpeg');
+/*!40000 ALTER TABLE `book` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `book_author`
+--
+
+DROP TABLE IF EXISTS `book_author`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `book_author` (
+  `book_id` int(11) NOT NULL,
+  `author_id` int(11) NOT NULL,
+  PRIMARY KEY (`book_id`,`author_id`),
+  KEY `IDX_9478D34516A2B381` (`book_id`),
+  KEY `IDX_9478D345F675F31B` (`author_id`),
+  CONSTRAINT `FK_9478D34516A2B381` FOREIGN KEY (`book_id`) REFERENCES `book` (`id`),
+  CONSTRAINT `FK_9478D345F675F31B` FOREIGN KEY (`author_id`) REFERENCES `author` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `book_author`
+--
+
+LOCK TABLES `book_author` WRITE;
+/*!40000 ALTER TABLE `book_author` DISABLE KEYS */;
+INSERT INTO `book_author` VALUES (2,2),(2,3),(4,4),(5,2),(5,3),(6,5),(8,13),(9,14);
+/*!40000 ALTER TABLE `book_author` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2018-02-12 16:27:04

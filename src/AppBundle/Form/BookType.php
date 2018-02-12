@@ -23,7 +23,7 @@ class BookType extends AbstractType
 			->add('name', TextType::class, array('label' => 'Наименование'))
 			->add('publishingYear', IntegerType::class, array('label' => 'Год издания'))
 			->add('isbn', TextType::class, array('label' => 'ISBN'))
-			->add('pageCount', TextType::class, array('label' => 'Количество страниц'))
+			->add('pageCount', IntegerType::class, array('label' => 'Количество страниц'))
 			->add('authors', EntityType::class, array(
 					'class' => 'AppBundle:Author',
 					'choice_label' => 'getFullName',
